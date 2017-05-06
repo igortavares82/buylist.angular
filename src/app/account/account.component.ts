@@ -11,7 +11,7 @@ export class AccountComponent {
     constructor (private router: Router, private accountsService: AccountService) {}
 
     ngOnInit() {
-
+        //console.log(123);
         this.accounts = this.accountsService.getAccounts();
     }
 }

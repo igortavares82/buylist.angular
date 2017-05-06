@@ -20,9 +20,11 @@ export class LoginComponent {
                 console.log('Error')
         });
     }
-}
 
-// 398.378.237-04
-// 999960447
-// marcos: 998442336
-// 20174180932274
+    logout () {
+
+        console.log('abc');
+        this.authenticationService.logout();
+        this.router.navigate(['/login']);
+    }
+}

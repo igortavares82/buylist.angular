@@ -1,0 +1,9 @@
+<nav [hidden]='!isLogged' class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" *ngFor='let item of items'>
+                <a class="nav-link" href='{{item.route}}' (click)='navigate($event, item.route)'>{{item.label}}</a>
+            </li>
+        </ul>
+    </div>
+</nav>
