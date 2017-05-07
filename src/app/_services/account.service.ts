@@ -15,10 +15,22 @@ export class AccountService {
 
         let accounts: Account[] = [];
 
-        this.http.get(Globals.BASE_URL_SERVICE + 'account/all/').map((response: Response) => {
+        this.http
+            .get(Globals.BASE_URL_SERVICE + 'account/all/')
+            .subscribe((response: Response) => {
+                
+                (response.json() as any[]).forEach(x => {
 
-            console.log(response.json());
-        });
+                     let account: Account = new Account();
+
+                     account.id = x._id;
+                     account.name = x.name;
+                     account.birth = new Date(x.birth);
+                     account.email = x.email;
+
+                     accounts.push(account);
+                });
+            });
 
         return accounts;
     }

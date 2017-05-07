@@ -20,11 +20,4 @@ export class LoginComponent {
                 console.log('Error')
         });
     }
-
-    logout () {
-
-        console.log('abc');
-        this.authenticationService.logout();
-        this.router.navigate(['/login']);
-    }
 }

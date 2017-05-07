@@ -8,10 +8,10 @@ export class AccountComponent {
 
     accounts: Account[] = [];
 
-    constructor (private router: Router, private accountsService: AccountService) {}
+    constructor (private router: Router, private accountsService: AccountService) {
 
-    ngOnInit() {
-        //console.log(123);
         this.accounts = this.accountsService.getAccounts();
     }
+
+    ngOnInit() {}
 }
