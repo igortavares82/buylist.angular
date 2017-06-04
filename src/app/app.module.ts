@@ -30,7 +30,7 @@ import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
     HttpModule,
     ReactiveFormsModule,
     routing,
-    NgbModule.forRoot(),
+    NgbModule,
     ModalModule.forRoot(),
     BootstrapModalModule
   ],

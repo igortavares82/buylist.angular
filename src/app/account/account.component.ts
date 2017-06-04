@@ -26,7 +26,7 @@ export class AccountComponent {
         this.modal
             .alert()
             .showClose(true)
-            .size('lg')
+            .size('sm')
             .title('Test')
             .body(`<p>modal test!!!</p>`)
             .open();
