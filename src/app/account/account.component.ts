@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import { Overlay } from 'angular2-modal';
 import { Modal } from 'angular2-modal/plugins/bootstrap';
+import { AccountCreateComponent, AccountCreateContext } from './account.create.component';
 
 @Component({ selector: 'account', templateUrl: 'account.component.html' })
 export class AccountComponent {
@@ -22,7 +23,10 @@ export class AccountComponent {
     }
 
     create() {
-
+        
+        this.modal.open(AccountCreateComponent, new AccountCreateContext());
+        
+        /*
         this.modal
             .alert()
             .showClose(true)
@@ -30,5 +34,6 @@ export class AccountComponent {
             .title('Test')
             .body(`<p>modal test!!!</p>`)
             .open();
+        */
     }
 }
