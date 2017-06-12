@@ -1,31 +1,39 @@
-<!--<div class="container modal-container">
-    <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <input type="text" />
-    </div>
-</div>-->
+<form [formGroup]="accountForm" (ngSubmit)="create()" >
+  <div class="container modal-container">
+    <div class="modal-dialog" role="document">
+      <div class="">
+        <div class="modal-header">
+          <h3 class="modal-title">CREATE ACCOUNT</h3>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+              <label for="username">Name</label>
+              <input name="username" class="form-control" [formControl]="username" />
+              <div [hidden]="username.valid || username.untouched">
+                <div [hidden]="!username.hasError('required')">required field</div>
+              </div>
+            </div>
 
-<div class="container modal-container">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div class="form-group">
+              <label for="birth">Birth</label>
+              <input name="birth" class="form-control" [formControl]="birth" />
+              <div [hidden]="birth.valid || birth.untouched">
+                <div [hidden]="!birth.hasError('required')" class="validation">required field</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input name="email" class="form-control" [formControl]="email" />
+              <div [hidden]="email.valid || email.untouched">
+                <div [hidden]="!email.hasError('required')">required field</div>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" [disabled]="!accountForm.valid" class="btn btn-primary">Create</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</form>

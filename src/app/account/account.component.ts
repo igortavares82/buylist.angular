@@ -2,12 +2,14 @@ import { Component, ViewContainerRef } from '@angular/core';
 import { Account } from '../_models/account';
 import { AccountService } from '../_services/account.service';
 import { Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms'
 
-import { Overlay } from 'angular2-modal';
-import { Modal } from 'angular2-modal/plugins/bootstrap';
+
+import { Overlay, overlayConfigFactory } from 'angular2-modal';
+import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import { AccountCreateComponent, AccountCreateContext } from './account.create.component';
 
-@Component({ selector: 'account', templateUrl: 'account.component.html' })
+@Component({ selector: 'account', templateUrl: 'account.component.html', providers: [Modal] })
 export class AccountComponent {
 
     accounts: Account[] = [];
@@ -16,7 +18,8 @@ export class AccountComponent {
                  private accountsService: AccountService, 
                  public modal: Modal, 
                  overlay: Overlay, 
-                 vcRef: ViewContainerRef) {
+                 vcRef: ViewContainerRef,
+                 private builder: FormBuilder) {
 
         this.accounts = this.accountsService.getAccounts();
         overlay.defaultViewContainer = vcRef;
@@ -24,16 +27,16 @@ export class AccountComponent {
 
     create() {
         
-        this.modal.open(AccountCreateComponent, new AccountCreateContext());
-        
+        this.modal.open(AccountCreateComponent, overlayConfigFactory({ n1: 2, n2: 3 }, BSModalContext));
+
         /*
         this.modal
             .alert()
             .showClose(true)
             .size('sm')
             .title('Test')
-            .body(`<p>modal test!!!</p>`)
+            .body('abc')
             .open();
-        */
+            */
     }
 }
