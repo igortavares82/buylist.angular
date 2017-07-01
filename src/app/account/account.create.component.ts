@@ -24,7 +24,7 @@ export class AccountCreateComponent implements ModalComponent<AccountCreateConte
 
     username = new FormControl('', [Validators.required]);
     birth = new FormControl('', [Validators.required]);
-    email = new FormControl('', [Validators.required]);
+    email = new FormControl('', [Validators.required, Validators.email]);
 
     accountForm: FormGroup = this.builder.group({
 

@@ -5,18 +5,19 @@ import 'rxjs/add/operator/map'
 import { URLSearchParams } from "@angular/http"
 import { Globals } from '../app.globals';
 import { Account } from '../_models/account';
+import { HttpService } from './http.service';
 
 @Injectable()
 export class AccountService {
 
-    constructor (private http: Http) { }
+    constructor (private http: HttpService) { }
 
-    getAccounts() : Account[] {
+    get() : Account[] {
 
         let accounts: Account[] = [];
 
         this.http
-            .get(Globals.BASE_URL_SERVICE + 'account/all/')
+            .get('account/all/')
             .subscribe((response: Response) => {
                 
                 (response.json() as any[]).forEach(x => {
@@ -33,5 +34,14 @@ export class AccountService {
             });
 
         return accounts;
+    }
+
+    create(account: Account) {
+
+        this.http
+            .post(Globals.BASE_URL_SERVICE + '/account/create/', account)
+            .subscribe((response: Response) => {
+                
+            })
     }
 }

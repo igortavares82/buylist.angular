@@ -4,7 +4,6 @@ import { AccountService } from '../_services/account.service';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms'
 
-
 import { Overlay, overlayConfigFactory } from 'angular2-modal';
 import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import { AccountCreateComponent, AccountCreateContext } from './account.create.component';
@@ -21,22 +20,12 @@ export class AccountComponent {
                  vcRef: ViewContainerRef,
                  private builder: FormBuilder) {
 
-        this.accounts = this.accountsService.getAccounts();
+        this.accounts = this.accountsService.get();
         overlay.defaultViewContainer = vcRef;
     }
 
     create() {
         
         this.modal.open(AccountCreateComponent, overlayConfigFactory({ n1: 2, n2: 3 }, BSModalContext));
-
-        /*
-        this.modal
-            .alert()
-            .showClose(true)
-            .size('sm')
-            .title('Test')
-            .body('abc')
-            .open();
-            */
     }
 }
