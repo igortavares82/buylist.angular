@@ -7,5 +7,7 @@ export class HttpOptions extends BaseRequestOptions {
         super();
         this.headers.append('Content-Type', 'application/json');
         this.headers.append('Authorization', 'Barear ' + localStorage.getItem('token'))
+
+        
     }
 }

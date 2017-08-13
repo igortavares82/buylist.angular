@@ -3,32 +3,58 @@
     <div class="modal-dialog" role="document">
       <div class="">
         <div class="modal-header">
-          <h3 class="modal-title">CREATE ACCOUNT</h3>
+          <div class="row">
+            <h4 class="modal-title">Create Account</h4>
+          </div>
         </div>
-        <div class="modal-body">
-            <div class="form-group">
+        <div class="modal-body row">
+
+          <div class="row">
+            <div class="form-group col-sm-12">
               <label for="username">Name</label>
               <input name="username" class="form-control" [formControl]="username" />
-              <div [hidden]="username.valid || username.untouched">
-                <div [hidden]="!username.hasError('required')">required field</div>
+              <div [hidden]="username.valid || username.untouched" class="text-danger">
+                <small [hidden]="!username.hasError('required')">required field</small>
               </div>
             </div>
+          </div>
 
-            <div class="form-group">
+          <div class="row">
+            <div class="form-group col-sm-3">
               <label for="birth">Birth</label>
-              <input name="birth" class="form-control" [formControl]="birth" />
-              <div [hidden]="birth.valid || birth.untouched">
-                <div [hidden]="!birth.hasError('required')" class="validation">required field</div>
+              <input name="birth" class="form-control" [formControl]="birth" (keyup)="birthdayKeyup($event)" maxlength="10" placeholder="mm/dd/yyyy" />
+              <div [hidden]="birth.valid || birth.untouched" class="text-danger">
+                <small [hidden]="!birth.hasError('required')">required field</small>
               </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-sm-9">
               <label for="email">Email</label>
-              <input name="email" class="form-control" [formControl]="email" />
-              <div [hidden]="email.valid || email.untouched">
-                <div [hidden]="!email.hasError('required')">required field</div>
+              <input name="email" class="form-control" [formControl]="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" placeholder="ex: address@domain.com" />
+              <div [hidden]="email.valid || email.untouched" class="text-danger">
+                <small [hidden]="!email.hasError('required')" >required field</small>
+                <small [hidden]="!email.hasError('pattern')">invalid format</small>
               </div>
             </div>
+          </div>
+            
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="login">Login</label>
+              <input name="login" class="form-control" [formControl]="login" />
+              <div [hidden]="login.valid || login.untouched" class="text-danger">
+                <small [hidden]="!login.hasError('required')">required field</small>
+              </div>
+            </div>
+
+            <div class="form-group col-sm-6">
+              <label for="password">Password</label>
+              <input name="password" class="form-control" [formControl]="password" />
+              <div [hidden]="password.valid || password.untouched" class="text-danger">
+                <small [hidden]="!password.hasError('required')">required field</small>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="submit" [disabled]="!accountForm.valid" class="btn btn-primary">Create</button>

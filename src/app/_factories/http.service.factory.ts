@@ -4,6 +4,7 @@ import { HttpService } from '../_services/http.service';
 
 function httpServiceFactory(backend: XHRBackend, options: HttpOptions) {
 
+    console.log(123)
     return new HttpService(backend, options);
 }
 

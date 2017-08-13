@@ -26,7 +26,8 @@ import { AccountComponent } from './account/account.component';
 import { MenuComponent } from './shared/menu/menu.component';
 import { HttpService } from './_services/http.service';
 import { HttpOptions } from './_models/http.options';
-import { httpServiceFactory } from './_factories/request.options.factory';
+import { httpServiceFactory } from './_factories/http.service.factory';
+import { LoadingComponent } from './shared/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { httpServiceFactory } from './_factories/request.options.factory';
     LogoutComponent,
     AccountComponent,
     MenuComponent,
-    AccountCreateComponent
+    AccountCreateComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +59,8 @@ import { httpServiceFactory } from './_factories/request.options.factory';
         provide: HttpService,
         useFactory: httpServiceFactory,
         deps: [XHRBackend, RequestOptions]    
-    }
+    },
+    LoadingComponent
   ],
   bootstrap: [AppComponent],
   entryComponents:[AccountCreateComponent]

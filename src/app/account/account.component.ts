@@ -7,25 +7,35 @@ import { FormBuilder } from '@angular/forms'
 import { Overlay, overlayConfigFactory } from 'angular2-modal';
 import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import { AccountCreateComponent, AccountCreateContext } from './account.create.component';
+import { LoadingComponent } from '../shared/loading/loading.component'
 
 @Component({ selector: 'account', templateUrl: 'account.component.html', providers: [Modal] })
 export class AccountComponent {
 
     accounts: Account[] = [];
+    state: boolean = false;
 
     constructor (private router: Router, 
                  private accountsService: AccountService, 
                  public modal: Modal, 
                  overlay: Overlay, 
                  vcRef: ViewContainerRef,
-                 private builder: FormBuilder) {
+                 private builder: FormBuilder,
+                 private loading: LoadingComponent) {
 
         this.accounts = this.accountsService.get();
         overlay.defaultViewContainer = vcRef;
+        this.state = this.loading.state;
     }
 
     create() {
         
         this.modal.open(AccountCreateComponent, overlayConfigFactory({ n1: 2, n2: 3 }, BSModalContext));
+    }
+
+    test() {
+
+        LoadingComponent.getInstance().change();
+        //window.setTimeout(function(){ _loading.change(); }, 1000);
     }
 }

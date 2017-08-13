@@ -25,12 +25,16 @@ export class AccountCreateComponent implements ModalComponent<AccountCreateConte
     username = new FormControl('', [Validators.required]);
     birth = new FormControl('', [Validators.required]);
     email = new FormControl('', [Validators.required, Validators.email]);
+    login = new FormControl('', [Validators.required]);
+    password = new FormControl('', [Validators.required]);
 
     accountForm: FormGroup = this.builder.group({
 
         username: this.username,
         birth: this.birth,
-        email: this.email
+        email: this.email,
+        login: this.login,
+        password: this.password
     });
 
     constructor(public dialog: DialogRef<AccountCreateContext>, private builder: FormBuilder) {  
@@ -41,5 +45,18 @@ export class AccountCreateComponent implements ModalComponent<AccountCreateConte
     create() {
 
          console.log(this.accountForm.value)
+    }
+
+    birthdayKeyup(event) {
+        
+        let key = event.key;
+
+        if (isNaN(key)) {
+
+            let newValue: string = this.birth.value;
+            this.birth.setValue(newValue.slice(0, newValue.length-1));
+
+        } else if (this.birth.value.length == 2 || this.birth.value.length == 5)
+            this.birth.setValue(this.birth.value + '/');
     }
 }
