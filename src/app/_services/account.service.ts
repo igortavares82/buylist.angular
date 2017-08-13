@@ -17,7 +17,7 @@ export class AccountService {
         let accounts: Account[] = [];
 
         this.http
-            .get('account/all/')
+            .get('account/alll/')
             .subscribe((response: Response) => {
                 
                 (response.json() as any[]).forEach(x => {

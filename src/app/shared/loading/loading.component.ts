@@ -12,20 +12,22 @@ export class LoadingComponent {
 
     constructor() {
 
-        this.subject.subscribe((value) => { this.state = value; });
+        if (LoadingComponent.instance == null) {
+
+            LoadingComponent.instance = this;
+            this.subject.subscribe((value) => { LoadingComponent.instance.state = value; });
+        }
+            
     }
 
     public static getInstance() : LoadingComponent {
-
-        if (LoadingComponent.instance == null)
-            LoadingComponent.instance = new LoadingComponent();
 
         return LoadingComponent.instance;
     }
 
     change() {
 
-        this.subject.next(!this.state);
-        console.log(this.state)
+        LoadingComponent.instance.subject.next(!LoadingComponent.instance.state);
+        console.log(LoadingComponent.instance.state)
     }
 }

@@ -14,13 +14,24 @@ import 'rxjs/Rx';
 import { HttpOptions } from '../_models/http.options';
 import { Globals } from '../app.globals';
 import { DialogRef, ModalComponent, CloseGuard } from 'angular2-modal';
+import { LoadingComponent } from '../shared/loading/loading.component'
+import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 
 @Injectable()
 export class HttpService extends Http {
 
+    private _loading: boolean = true;
+
     constructor(xhr: XHRBackend, defaultOptions: HttpOptions) {
         
         super(xhr, defaultOptions);
+        this.loadingHandler()
+    }
+
+    loading(value: boolean) : this {
+
+        this._loading = value;
+        return this;
     }
 
     get(url: string, options?: RequestOptionsArgs) : Observable<any> {
@@ -32,9 +43,7 @@ export class HttpService extends Http {
                         
                         this.errorHandler(error);
                     })
-                    .finally(() => {
-
-                    });
+                    .finally(() => { this.loadingHandler(); });
     }
 
     post(url: string, data: any, options?: RequestOptionsArgs)  {
@@ -46,9 +55,7 @@ export class HttpService extends Http {
 
                         this.errorHandler(error);
                     })
-                    .finally(() => {
-
-                    });
+                    .finally(() => { this.loadingHandler(); });
     }
 
     private requestOptions(options?: RequestOptionsArgs) : RequestOptionsArgs {
@@ -64,6 +71,16 @@ export class HttpService extends Http {
 
     private errorHandler(error: any) {
 
-        console.log(error);
+        if (error.status > 0) {
+            
+        } else {
+
+        }
+    }
+
+    private loadingHandler() {
+
+        if (this._loading) 
+            LoadingComponent.getInstance().change();
     }
 }
