@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 /* plugin modal */
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 
 /* project components */
 import { AuthGuard } from './_auth/auth.guard';
@@ -58,7 +59,7 @@ import { LoadingComponent } from './shared/loading/loading.component';
     {
         provide: HttpService,
         useFactory: httpServiceFactory,
-        deps: [XHRBackend, RequestOptions]    
+        deps: [XHRBackend, RequestOptions, Modal]    
     },
     LoadingComponent
   ],

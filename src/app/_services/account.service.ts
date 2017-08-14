@@ -12,12 +12,12 @@ export class AccountService {
 
     constructor (private http: HttpService) { }
 
-    get() : Account[] {
+    public get() : Account[] {
 
         let accounts: Account[] = [];
 
         this.http
-            .get('account/alll/')
+            .get('account/al/')
             .subscribe((response: Response) => {
                 
                 (response.json() as any[]).forEach(x => {
@@ -36,12 +36,16 @@ export class AccountService {
         return accounts;
     }
 
-    create(account: Account) {
+    public create(account: Account) {
 
         this.http
-            .post(Globals.BASE_URL_SERVICE + '/account/create/', account)
+            .loading(true)
+            .post('account/create/', account)
             .subscribe((response: Response) => {
                 
-            })
+                console.log(response);
+            });
+
+        
     }
 }

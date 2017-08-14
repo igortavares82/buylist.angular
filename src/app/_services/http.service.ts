@@ -21,11 +21,13 @@ import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 export class HttpService extends Http {
 
     private _loading: boolean = true;
+    private _modal: Modal;
 
-    constructor(xhr: XHRBackend, defaultOptions: HttpOptions) {
+    constructor(xhr: XHRBackend, defaultOptions: HttpOptions, public modal: Modal) {
         
         super(xhr, defaultOptions);
-        this.loadingHandler()
+        this.loadingHandler(true);
+        this._modal = modal;
     }
 
     loading(value: boolean) : this {
@@ -43,7 +45,7 @@ export class HttpService extends Http {
                         
                         this.errorHandler(error);
                     })
-                    .finally(() => { this.loadingHandler(); });
+                    .finally(() => { this.loadingHandler(false); });
     }
 
     post(url: string, data: any, options?: RequestOptionsArgs)  {
@@ -55,7 +57,7 @@ export class HttpService extends Http {
 
                         this.errorHandler(error);
                     })
-                    .finally(() => { this.loadingHandler(); });
+                    .finally(() => { this.loadingHandler(false); });
     }
 
     private requestOptions(options?: RequestOptionsArgs) : RequestOptionsArgs {
@@ -71,16 +73,32 @@ export class HttpService extends Http {
 
     private errorHandler(error: any) {
 
-        if (error.status > 0) {
-            
-        } else {
+        let title: string;
+        let body: string;
 
+        if (error.status == 0) {
+
+            title = 'Http error';
+            body = 'An error ocurred on your connection!';
+
+        } else {
+            
+            title = `Http ${error.status} error`;
+            body = error.statusText;
         }
+        
+        this._modal
+            .alert()
+            .title(title)
+            .body(body)
+            .open();
     }
 
-    private loadingHandler() {
+    private loadingHandler(value: boolean) {
+
+        console.log(this._loading);
 
         if (this._loading) 
-            LoadingComponent.getInstance().change();
+            LoadingComponent.instance.change(value);
     }
 }

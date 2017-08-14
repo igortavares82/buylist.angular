@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { DialogRef, ModalComponent, CloseGuard } from 'angular2-modal';
 import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms'
-
+import { AccountService } from '../_services/account.service';
 import { Account } from '../_models/account';
 
 //https://github.com/shlomiassaf/angular2-modal
@@ -37,14 +37,23 @@ export class AccountCreateComponent implements ModalComponent<AccountCreateConte
         password: this.password
     });
 
-    constructor(public dialog: DialogRef<AccountCreateContext>, private builder: FormBuilder) {  
+    constructor(public dialog: DialogRef<AccountCreateContext>, private builder: FormBuilder, private accountService: AccountService) {  
 
         this.context = this.dialog.context;
     }
 
     create() {
 
-         console.log(this.accountForm.value)
+        let account: Account = new Account();
+
+        account.name = this.accountForm.value.username;
+        account.birth = new Date(this.accountForm.value.birth);
+        account.email = this.accountForm.value.email;
+        account.login = this.accountForm.value.login;
+        account.password = this.accountForm.value.password;
+
+        this.accountService.create(account);
+        
     }
 
     birthdayKeyup(event) {
